@@ -1,12 +1,17 @@
-python-aiml
+# python-aiml
+
 ***********
 
-This is a fork of the `PyAIML`_ Python AIML interpreter. It has been
-refactored to make it install and work in both Python 2.7 and Python 3.
+This is a fork of the [paulovn/python-aiml](https://github.com/paulovn/python-aiml) Python AIML interpreter. It has been
+refactored to make it 
+
+1. support Chinese
+2. support both Python 2.7 and Python 3.
+
+Part of the idea and example are from [andelf/PyAIML](https://github.com/andelf/PyAIML/tree/9b46392935d223358f922c365a9ecb7ecbadc7ea)/. 
 
 PyAIML is (c) Cort Stratton. *python-aiml* uses the same license as PyAIML 
-(2-clause BSD), except for the ALICE AIML files taken from the `Free ALICE AIML
-set`_, which are licensed with the `LGPL`_ license.
+(2-clause BSD), except for the ALICE AIML files taken from the [Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/), which are licensed with the [LGPL](http://www.gnu.org/licenses/lgpl.html) license.
 
 
 Scripts
@@ -32,8 +37,6 @@ The installation includes two AIML datasets:
 They can be loaded via the ``bootstrap`` method in the ``Kernel`` class. See 
 the `bot.py`_ script for an example.
 
-
-
 Tests
 =====
 
@@ -57,6 +60,16 @@ naming them in the command line; if none is specified all will be executed.
 .. _ALICE AI Foundation: http://alice.pandorabots.com/
 .. _bot.py: aiml/script/bot.py
 .. _AIML 1.0.1: http://www.alicebot.org/TR/2011/
+
+
+
+# Examples
+
+- /example1: 
+
+
+
+
 
 ------------------------------------------------------------------------------
 
@@ -84,17 +97,17 @@ Quick & dirty example (assuming you've downloaded the "standard" AIML set)::
 	# The Kernel object is the public interface to
 	# the AIML interpreter.
 	k = aiml.Kernel()
-
+	
 	# Use the 'learn' method to load the contents
 	# of an AIML file into the Kernel.
 	k.learn("std-startup.xml")
-
+	
 	# Use the 'respond' method to compute the response
 	# to a user's input string.  respond() returns
 	# the interpreter's response, which in this case
 	# we ignore.
 	k.respond("load aiml b")
-
+	
 	# Loop forever, reading user input from the command
 	# line and printing responses.
 	while True: print k.respond(raw_input("> "))
