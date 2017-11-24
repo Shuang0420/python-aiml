@@ -453,6 +453,10 @@ class Kernel:
             response += self._processElement(elem, sessionID).strip()
             response += u" "
         response = response.strip()
+        if not PY3:
+            response = mergeChineseSpace(unicode(response, self._textEncoding) if type(response) == str else response)
+        else:
+            response = mergeChineseSpace(response if type(response) == str else response) 
 
         # pop the top entry off the input stack.
         inputStack = self.getPredicate(self._inputStack, sessionID)
@@ -841,6 +845,7 @@ class Kernel:
             words = response.split(" ", 1)
             words[0] = words[0].capitalize()
             response = ' '.join(words)
+            print(response)
             return response
         except IndexError: # response was empty
             return ""
@@ -970,6 +975,7 @@ class Kernel:
         for line in out:
             response += line + "\n"
         response = ' '.join(response.splitlines()).strip()
+        print(response)
         if not PY3: response = response.decode(self._textEncoding)
         return response
 
