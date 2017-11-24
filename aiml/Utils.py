@@ -1,12 +1,17 @@
+# -*- coding: utf-8 -*-
+
+from .LangSupport import splitChinese
+
 """This file contains assorted general utility functions used by other
 modules in the PyAIML package.
 
 """
 
+# TODO: andelf, add chinese sentence support
 def sentences(s):
     """Split the string s into a list of sentences."""
     try: s+""
-    except: raise TypeError( "s must be a string" )
+    except: raise TypeError("s must be a string")
     pos = 0
     sentenceList = []
     l = len(s)
@@ -23,5 +28,11 @@ def sentences(s):
     # If no sentences were found, return a one-item list containing
     # the entire input string.
     if len(sentenceList) == 0: sentenceList.append(s)
-    return sentenceList
+    # auto convert chinese
+    return map(lambda s: u' '.join(splitChinese(s)), sentenceList)
 
+# Self test
+if __name__ == "__main__":
+    # sentences
+    sents = sentences("First.  Second, still?  Third and Final!  Well, not really")
+    assert(len(sents) == 4)
