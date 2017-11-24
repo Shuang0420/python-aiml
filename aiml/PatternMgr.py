@@ -153,7 +153,6 @@ class PatternMgr:
         if topic.strip() == u"": topic = u"ULTRABOGUSDUMMYTOPIC" # 'topic' must never be empty
         topicInput = topic.upper()
         topicInput = re.sub(self._puncStripRE, " ", topicInput)
-        print(splitUnicode(input_))
         # Pass the input off to the recursive call
         # patMatch, template = self._match(input_.split(), thatInput.split(), topicInput.split(), self._root)
         # patMatch, template = self._match(splitUnicode(input_), splitUnicode(thatInput), splitUnicode(topicInput), self._root)
