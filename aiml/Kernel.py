@@ -1,4 +1,4 @@
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 """This file contains the public interface to the aiml module."""
 
 from __future__ import print_function
@@ -25,6 +25,7 @@ from . import Utils
 from .AimlParser import create_parser
 from .PatternMgr import PatternMgr
 from .WordSub import WordSub
+from .LangSupport import splitChinese, mergeChineseSpace
 
 
 
@@ -54,15 +55,19 @@ class Kernel:
     _outputHistory = "_outputHistory"   # keys to a queue (list) of recent responses.
     _inputStack = "_inputStack"         # Should always be empty in between calls to respond()
 
-    def __init__(self):
+    def __init__(self, sessionStore=None):
+
         self._verboseMode = True
         self._version = "python-aiml {}".format(VERSION)
         self._brain = PatternMgr()
         self._respondLock = threading.RLock()
         self.setTextEncoding( None if PY3 else "utf-8" )
 
-        # set up the sessions        
-        self._sessions = {}
+        # set up the sessions   
+        if sessionStore is not None:
+            self._sessions = sessionStore
+        else:     
+            self._sessions = {}
         self._addSession(self._globalSessionID)
 
         # Set up the bot predicates
@@ -129,6 +134,7 @@ class Kernel:
         processing). Upon returning the current directory is moved back to 
         where it was before.
         """
+        print(learnFiles)
         start = time.clock()
         if brainFile:
             self.loadBrain(brainFile)
@@ -270,7 +276,8 @@ class Kernel:
         substituter.
 
         """
-        inFile = file(filename)
+        # inFile = file(filename)
+        inFile = open(filename)
         parser = ConfigParser()
         parser.readfp(inFile, filename)
         inFile.close()
@@ -939,7 +946,7 @@ class Kernel:
         command = ""
         for e in elem[2:]:
             command += self._processElement(e, sessionID)
-
+        
         # normalize the path to the command.  Under Windows, this
         # switches forward-slashes to back-slashes; all system
         # elements should use unix-style paths for cross-platform
@@ -947,6 +954,7 @@ class Kernel:
         #executable,args = command.split(" ", 1)
         #executable = os.path.normpath(executable)
         #command = executable + " " + args
+        if not PY3: command = command.encode(self._textEncoding)
         command = os.path.normpath(command)
 
         # execute the command.
@@ -962,6 +970,7 @@ class Kernel:
         for line in out:
             response += line + "\n"
         response = ' '.join(response.splitlines()).strip()
+        if not PY3: response = response.decode(self._textEncoding)
         return response
 
     # <template>
