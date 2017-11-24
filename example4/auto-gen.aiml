@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+
+<meta name="author" content="autogen"/>
+<meta name="language" content="zh"/>
+
+<category>
+<pattern>哈哈</pattern>
+<template>
+哈哈哈哈哈
+</template>
+</category>
+
+</aiml>
