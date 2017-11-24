@@ -10,6 +10,7 @@ import sys
 import xml.sax
 import xml.sax.handler
 
+from .LangSupport import splitChinese
 from .constants import *
 
 
@@ -378,6 +379,7 @@ class AimlHandler(ContentHandler):
             self._state = self._STATE_InsideAiml
             # End the current category.  Store the current pattern/that/topic and
             # element in the categories dictionary.
+            self._currentPattern = u' '.join(splitChinese(self._currentPattern))
             key = (self._currentPattern.strip(), self._currentThat.strip(),self._currentTopic.strip())
             self.categories[key] = self._elemStack[-1]
             self._whitespaceBehaviorStack.pop()
