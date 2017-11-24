@@ -5,6 +5,7 @@ http://www.alicebot.org/documentation/matching.html
 '''
 
 from __future__ import print_function
+from __future__ import unicode_literals
 
 import marshal
 import pprint
@@ -13,6 +14,7 @@ import string
 import sys
 
 from .constants import *
+from .LangSupport import splitUnicode
 
 class PatternMgr:
     # special dictionary keys
@@ -28,7 +30,7 @@ class PatternMgr:
         self._templateCount = 0
         self._botName = u"Nameless"
         punctuation = "\"`~!@#$%^&*()-_=+[{]}\|;:',<.>/?"
-        self._puncStripRE = re.compile("[" + re.escape(punctuation) + "]")
+        self._puncStripRE = re.compile("[" + re.escape(punctuation) + "]", re.U)
         self._whitespaceRE = re.compile("\s+", re.UNICODE)
 
     def numTemplates(self):
@@ -151,9 +153,11 @@ class PatternMgr:
         if topic.strip() == u"": topic = u"ULTRABOGUSDUMMYTOPIC" # 'topic' must never be empty
         topicInput = topic.upper()
         topicInput = re.sub(self._puncStripRE, " ", topicInput)
-        
+        print(splitUnicode(input_))
         # Pass the input off to the recursive call
-        patMatch, template = self._match(input_.split(), thatInput.split(), topicInput.split(), self._root)
+        # patMatch, template = self._match(input_.split(), thatInput.split(), topicInput.split(), self._root)
+        # patMatch, template = self._match(splitUnicode(input_), splitUnicode(thatInput), splitUnicode(topicInput), self._root)
+        patMatch, template = self._match(splitUnicode(input_), thatInput.split(), splitUnicode(topicInput), self._root)
         return template
 
     def star(self, starType, pattern, that, topic, index):
@@ -290,7 +294,6 @@ class PatternMgr:
 
         first = words[0]
         suffix = words[1:]
-        
         # Check underscore.
         # Note: this is causing problems in the standard AIML set, and is
         # currently disabled.
