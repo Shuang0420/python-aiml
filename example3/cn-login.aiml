@@ -2,7 +2,7 @@
 
 <aiml version="1.0">
 
-<meta name="author" content="Andelf"/>
+<meta name="author" content="Shuang"/>
 <meta name="language" content="zh"/>
 
 <category>
@@ -37,16 +37,6 @@
 <get name="username" />，您已注册，谢谢.
 </template>
 </category>
-
-<!-- <category>
-<pattern>*</pattern>
-<template>
-  <condition>
-    <li name="password" value="1122">密码正确, <get name="username" />已通过验证.</li>
-    <li name="password" value="">请登陆.</li>
-  </condition>
-</template>
-</category> -->
 
 
 <category>

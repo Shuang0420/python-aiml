@@ -5,10 +5,14 @@
 <meta name="language" content="zh"/>
 
 <category>
-<pattern>哈哈</pattern>
-<template>
-哈哈哈哈哈
-</template>
+<pattern>你爱我吗</pattern>
+<template>我最爱你啦</template>
+</category>
+
+
+<category>
+<pattern>你爱吗</pattern>
+<template>我最爱你啦</template>
 </category>
 
 </aiml>

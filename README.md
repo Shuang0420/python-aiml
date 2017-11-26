@@ -65,12 +65,15 @@ naming them in the command line; if none is specified all will be executed.
 
 # Examples
 
-- /example1: ![example1](pictures/example1.png)
+**/example1:** ![example1](pictures/example1.png)
 
+**/example2:** 
 
 ![example2](pictures/example2.png)
 
-![example2](pictures/example3.png)
+**/example3:** ![example3](pictures/example3.png)
+
+**/example4:** 
 
 ![example4](pictures/example4.png)
 

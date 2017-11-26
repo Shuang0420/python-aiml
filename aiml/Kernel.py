@@ -957,6 +957,7 @@ class Kernel:
         """
         # build up the command string
         command = ""
+        print(command)
         for e in elem[2:]:
             command += self._processElement(e, sessionID)
         

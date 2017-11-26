@@ -7,36 +7,17 @@
 <!-- the terms of the GNU General Public License -->
 <!-- as published by the Free Software Foundation. -->
 
-<meta name="author" content="Andelf"/>
+<meta name="author" content="Shuang"/>
 <meta name="language" content="zh"/>
 
-<category>
-<pattern>* 再见</pattern>
-<template>
-<srai>BYE</srai>
-</template>
-</category>
 
 <category>
-<pattern>再见</pattern>
-<template>
-<srai>BYE</srai>
-</template>
-</category>
-
-<category>
-<pattern>你好</pattern>
-<template>
-<srai>HELLO</srai>
-</template>
-</category>
-
-<category>
-<pattern>谢谢</pattern>
+<pattern>HELLO</pattern>
 <template>
 <random>
-  <li>不客气.</li>
-  <li>你太客气了.</li>
+<li>你好.</li>
+<li>你也好.</li>
+<li>你好啊.</li>
 </random>
 </template>
 </category>
@@ -55,73 +36,16 @@
 </template>
 </category>
 
-<category>
-<pattern>HELLO</pattern>
-<template>
-<random>
-<li>你好.</li>
-<li>你也好.</li>
-<li>你好啊.</li>
-</random>
-</template>
-</category>
 
 
 <category>
   <pattern>*</pattern>
   <template>
-    <condition>
-      <li><srai>INACTIVITYQUESTIONS</srai></li>
-    </condition>
+    哈哈
   </template>
 </category>
 
 
-<category>
-<pattern>一个*</pattern>
-<template>
-那个叫<set name="it"><person/></set>东西是什么玩意?
-</template>
-</category>
-
-<category>
-<pattern>_</pattern>
-<that>我怎么称呼你</that>
-<template>
-<think><set name="personality">average</set><set name="name"><formal><star/></formal></set></think>
-很高兴见到你, <get name="name"/>.
-</template>
-</category>
-
-
-
-<category>
-<pattern>INACTIVITYQUESTIONS</pattern>
-<template>
-<condition>
-<li name="name" value="">我怎么称呼你?</li>
-<li><srai>ASK USER A QUESTION</srai></li>
-</condition>
-</template>
-</category>
-
-<category>
-<pattern>ASK USER A QUESTION</pattern>
-<template>
-<random>
-  <li>咱随便聊聊吧</li>
-  <li>其实我不是很聪明,不过你可以教教我</li>
-  <li>聊聊人生聊聊理想把</li>
-</random>
-</template>
-</category>
-
-<category>
-<pattern>* 的名字</pattern>
-<template>
-<person />是<bot name="name" />.
-</template>
-</category>
 
 <category>
 <pattern>生日快乐</pattern>
@@ -166,7 +90,7 @@
 </category>
 
 <category>
-<pattern>你应该说 *</pattern>
+<pattern>应该说 *</pattern>
 <that>那我应该怎么说</that>
 <template>
   <srai><input index="3" /> XLEARN REPLY <star index="1" /></srai>
@@ -175,7 +99,7 @@
 
 
 <category>
-<pattern>应该说 *</pattern>
+<pattern>你应该说 *</pattern>
 <that>那我应该怎么说</that>
 <template>
   <srai><input index="3" /> XLEARN REPLY <star index="1" /></srai>
