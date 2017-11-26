@@ -55,11 +55,11 @@ python test [testname ...]
 
 This last version allows executing only some of the test files by explicitly naming them in the command line; if none is specified all will be executed.
 
-[PyAIML](https://github.com/cdwfs/pyaiml)
-[Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/)
-[LGPL](http://www.gnu.org/licenses/lgpl.html)
-[ALICE AI Foundation](http://alice.pandorabots.com/)
-[AIML 1.0.1](http://www.alicebot.org/TR/2011/)
+- [PyAIML](https://github.com/cdwfs/pyaiml)
+- [Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/)
+- [LGPL](http://www.gnu.org/licenses/lgpl.html)
+- [ALICE AI Foundation](http://alice.pandorabots.com/)
+- [AIML 1.0.1](http://www.alicebot.org/TR/2011/)
 
 # Examples
 
