@@ -20,7 +20,6 @@ def isChinese(c):
     return any(s <= ord(c) <= e for s, e in r)
 
 def splitChinese(s):
-
     result = []
     for c in s:
         if isChinese(c):
@@ -44,4 +43,17 @@ def splitUnicode(s):
 
 def mergeChineseSpace(s):
     segs = splitChinese(s)
-    return u''.join(segs).strip()
+    result = []
+    for seg in segs:
+        # English marks
+        if seg[0] not in ".,?!" and not isChinese(seg[0]):
+            try:
+                str(seg[0]) and result.append(" ")
+            except:
+                pass
+        result.append(seg)
+        # try:
+        #     str(seg[-1]) and result.append("")
+        # except:
+        #     pass
+    return u''.join(result).strip()

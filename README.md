@@ -8,7 +8,7 @@ refactored to make it
 1. support Chinese
 2. support both Python 2.7 and Python 3.
 
-Part of the idea and example are from [andelf/PyAIML](https://github.com/andelf/PyAIML/tree/9b46392935d223358f922c365a9ecb7ecbadc7ea)/. 
+Part of the idea and example are from [andelf/PyAIML](https://github.com/andelf/PyAIML/tree/9b46392935d223358f922c365a9ecb7ecbadc7ea). 
 
 PyAIML is (c) Cort Stratton. *python-aiml* uses the same license as PyAIML 
 (2-clause BSD), except for the ALICE AIML files taken from the [Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/), which are licensed with the [LGPL](http://www.gnu.org/licenses/lgpl.html) license.
@@ -65,7 +65,14 @@ naming them in the command line; if none is specified all will be executed.
 
 # Examples
 
-- /example1: 
+- /example1: ![example1](pictures/example1.png)
+
+
+![example2](pictures/example2.png)
+
+![example2](pictures/example3.png)
+
+![example4](pictures/example4.png)
 
 
 

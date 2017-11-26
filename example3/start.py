@@ -7,6 +7,27 @@ from aiml.constants import *
 import aiml
 
 
+template = open("cn-login.aiml", "r").readlines()
+
+template = ''.join(template[:-2]) + '{rule}</aiml>'
+
+
+category_template = """
+<category>
+<pattern>*</pattern>
+<that>你的密码是</that>
+<template>
+<think><set name="password"><formal><star/></formal></set></think>
+  <condition>
+    <li name="password" value={password}>密码正确, 已通过验证.</li>
+    <li name="password" value="">请登陆.</li>
+  </condition>
+</template>
+</category>
+"""
+
+
+
 db = shelve.open("session.db", "c", writeback=True)
 
 # The Kernel object is the public interface to
@@ -32,6 +53,13 @@ k.respond("load aiml cn")
 while True:
     if PY3:
         print(k.respond(input("> ")))
+        userdict = dict(db)['_global']
+        # if "username" in userdict:
+        # 	print(userdict["username"])
+        # if "password" in userdict:
+        # 	print(userdict["password"])
+
     else:
         print(k.respond(raw_input("> ")))
+        print(dict(db))
     db.sync()

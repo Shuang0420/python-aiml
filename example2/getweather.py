@@ -45,9 +45,12 @@ def queryRealTimeWeatherInfo(code):
 
 def showRealTimeWeatherInfo(info):
     # template = u"{city} {time} 天气实况: 气温{temp}℃, {WD}{WS}, 湿度{SD}"
-    template = u"{name} {last_update} 天气实况: 气温{temperature}℃, {text}" 
+    template = u"{name}, {last_update}, 天气实况: 气温{temperature}℃, {text}"
+    # template = u"{name} {last_update} 天气实况: 气温{temperature}℃, {text}"
     # print(template.format(**info))
-    print(template.format(**info).encode(ENCODING))
+    response = template.format(**info).encode(ENCODING)
+    response = response.encode(ENCODING) if type(response) == str else response.decode('utf-8')
+    print(response)
 
 
 def main():

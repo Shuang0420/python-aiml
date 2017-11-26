@@ -68,6 +68,16 @@
 
 
 <category>
+  <pattern>*</pattern>
+  <template>
+    <condition>
+      <li><srai>INACTIVITYQUESTIONS</srai></li>
+    </condition>
+  </template>
+</category>
+
+
+<category>
 <pattern>一个*</pattern>
 <template>
 那个叫<set name="it"><person/></set>东西是什么玩意?

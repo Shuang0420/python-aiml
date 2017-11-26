@@ -57,7 +57,7 @@ class Kernel:
 
     def __init__(self, sessionStore=None):
 
-        self._verboseMode = True
+        self._verboseMode = False
         self._version = "python-aiml {}".format(VERSION)
         self._brain = PatternMgr()
         self._respondLock = threading.RLock()
@@ -456,7 +456,7 @@ class Kernel:
         if not PY3:
             response = mergeChineseSpace(unicode(response, self._textEncoding) if type(response) == str else response)
         else:
-            response = mergeChineseSpace(response if type(response) == str else response) 
+            response = mergeChineseSpace(response if type(response) == str else response.decode('unicode-escape')) 
 
         # pop the top entry off the input stack.
         inputStack = self.getPredicate(self._inputStack, sessionID)
@@ -577,6 +577,14 @@ class Kernel:
                             liName = liAttr['name']
                         # get the value to check against
                         liValue = liAttr['value']
+                        # only set for user login
+                        if liName == 'password' and liValue == '*':
+                            userdict = dict(self._sessions)[sessionID]
+                            input_pwd = userdict['_inputHistory'][-1]
+                            if self.getPredicate(liName, sessionID) == input_pwd:
+                                foundMatch = True
+                                response += self._processElement(li,sessionID)
+                                break
                         # do the test
                         if self.getPredicate(liName, sessionID) == liValue:
                             foundMatch = True
@@ -604,6 +612,7 @@ class Kernel:
                 # Some other catastrophic cataclysm
                 if self._verboseMode: print( "catastrophic condition failure" )
                 raise
+
         return response
         
     # <date>
@@ -845,7 +854,6 @@ class Kernel:
             words = response.split(" ", 1)
             words[0] = words[0].capitalize()
             response = ' '.join(words)
-            print(response)
             return response
         except IndexError: # response was empty
             return ""
@@ -975,7 +983,6 @@ class Kernel:
         for line in out:
             response += line + "\n"
         response = ' '.join(response.splitlines()).strip()
-        print(response)
         if not PY3: response = response.decode(self._textEncoding)
         return response
 
