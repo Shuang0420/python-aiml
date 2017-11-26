@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import atexit
 sys.path.insert(0, "../")
@@ -53,13 +55,6 @@ k.respond("load aiml cn")
 while True:
     if PY3:
         print(k.respond(input("> ")))
-        userdict = dict(db)['_global']
-        # if "username" in userdict:
-        # 	print(userdict["username"])
-        # if "password" in userdict:
-        # 	print(userdict["password"])
-
     else:
         print(k.respond(raw_input("> ")))
-        print(dict(db))
     db.sync()
