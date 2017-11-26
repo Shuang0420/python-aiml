@@ -25,4 +25,4 @@ while True:
         print(k.respond(input("> ")))
     else:
         print(k.respond(raw_input("> ")))
-    #db.sync()
+    db.sync()
