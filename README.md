@@ -41,27 +41,25 @@ Tests
 =====
 
 There are a number of unit tests included (in the ``test`` subdirectory); they 
-can be executed by the setup infrastructure as::
+can be executed by the setup infrastructure as:
 
-  python setup.py test
+```
+python setup.py test
+```
 
-or they can also be launched by directly calling::
+or they can also be launched by directly calling:
 
-  python test [testname ...]
+```
+python test [testname ...]
+```
 
-This last version allows executing only some of the test files by explicitly
-naming them in the command line; if none is specified all will be executed.
+This last version allows executing only some of the test files by explicitly naming them in the command line; if none is specified all will be executed.
 
-
-
-.. _PyAIML: https://github.com/cdwfs/pyaiml
-.. _Free ALICE AIML set: https://code.google.com/archive/p/aiml-en-us-foundation-alice/
-.. _LGPL: http://www.gnu.org/licenses/lgpl.html
-.. _ALICE AI Foundation: http://alice.pandorabots.com/
-.. _bot.py: aiml/script/bot.py
-.. _AIML 1.0.1: http://www.alicebot.org/TR/2011/
-
-
+[PyAIML](https://github.com/cdwfs/pyaiml)
+[Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/)
+[LGPL](http://www.gnu.org/licenses/lgpl.html)
+[ALICE AI Foundation](http://alice.pandorabots.com/)
+[AIML 1.0.1](http://www.alicebot.org/TR/2011/)
 
 # Examples
 
