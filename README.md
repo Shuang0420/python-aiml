@@ -1,7 +1,4 @@
 # aiml
-
-***********
-
 This is a fork of the [paulovn/python-aiml](https://github.com/paulovn/python-aiml) Python AIML interpreter. It has been
 refactored to make it 
 
