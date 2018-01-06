@@ -15,6 +15,7 @@ Install
 =======
 ```
 git clone https://github.com/Shuang0420/aiml.git
+cd aiml
 python setup.py build
 python setup.py install
 ```
