@@ -73,6 +73,8 @@ This last version allows executing only some of the test files by explicitly nam
 
 **/example3:** 
 
+Run ``python start.py`` first and then run ``python continue.py``. 
+Example3 does not work for python2 due to shelve sync issue.
 ![example3](pictures/example3.png)
 
 **/example4:** 
