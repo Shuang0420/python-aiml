@@ -14,7 +14,7 @@ PyAIML is (c) Cort Stratton. *python-aiml* uses the same license as PyAIML
 Install
 =======
 ```
-git clone https://github.com/paulovn/python-aiml.git
+git clone https://github.com/Shuang0420/aiml.git
 python setup.py build
 python setup.py install
 ```
