@@ -32,7 +32,7 @@ chdir = os.getcwd()
 k = aiml.Kernel()
 
 # for alice
-k.bootstrap(learnFiles="std-startup.xml", commands="load aiml b, chdir=chdir)
+k.bootstrap(learnFiles="std-startup.xml", commands="load aiml b", chdir=chdir)
 
 # if python 2
 # while True: print(k.respond(raw_input("> ")))
