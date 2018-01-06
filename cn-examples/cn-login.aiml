@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml version="1.0">
+
+<meta name="author" content="Shuang0420"/>
+<meta name="language" content="zh"/>
+
+<category>
+<pattern>登录</pattern>
+<template>
+你的用户名是?
+</template>
+</category>
+
+<category>
+<pattern>注册</pattern>
+<template>
+请输入用户名
+</template>
+</category>
+
+<category>
+<pattern>*</pattern>
+<that>请输入用户名</that>
+<template>
+<think><set name="username"><star/></set></think>
+请输入密码
+</template>
+</category>
+
+
+<category>
+<pattern>*</pattern>
+<that>请输入密码</that>
+<template>
+<think><set name="password"><star/></set></think>
+<get name="username" />，您已注册，谢谢.
+</template>
+</category>
+
+
+<category>
+<pattern>*</pattern>
+<that>你的用户名是</that>
+<template>
+<think><set name="username"><star/></set></think>
+你的密码是?
+</template>
+</category>
+
+<category>
+<pattern>*</pattern>
+<that>你的密码是</that>
+<template>
+<!-- <think><set name="password"><formal><star/></formal></set></think>
+谢谢. -->
+  <condition>
+    <li name="password" value="*">密码正确, <get name="username" />已通过验证.</li>
+    <li>密码不正确，请重新登陆.</li>
+  </condition>
+</template>
+</category>
+
+
+</aiml>

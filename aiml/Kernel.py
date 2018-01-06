@@ -139,7 +139,7 @@ class Kernel:
         processing). Upon returning the current directory is moved back to 
         where it was before.
         """
-        print(learnFiles)
+        if self._verboseMode: print(learnFiles)
         start = time.clock()
         if brainFile:
             self.loadBrain(brainFile)
@@ -414,7 +414,7 @@ class Kernel:
             finalResponse = finalResponse.strip()
             #print( "@ASSERT", self.getPredicate(self._inputStack, sessionID))
             if not finalResponse:
-                finalResponse = u"这是个没有意义的问题，小言没办法回答喔~"
+                finalResponse = u"无言以对~"
             assert(len(self.getPredicate(self._inputStack, sessionID)) == 0)
 
             # and return, encoding the string into the I/O encoding

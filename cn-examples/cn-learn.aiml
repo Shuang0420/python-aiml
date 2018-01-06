@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml version="1.0">
+
+<meta name="author" content="Shuang0420"/>
+<meta name="language" content="zh"/>
+
+
+<category>
+<pattern>HELLO</pattern>
+<template>
+<random>
+<li>你好.</li>
+<li>你也好.</li>
+<li>你好啊.</li>
+</random>
+</template>
+</category>
+
+
+<category>
+<pattern>BYE</pattern>
+<template>
+<random>
+<li>再见<get name="name"/>.</li>
+<li>再见啦, <get name="name"/>.</li>
+<li>下次见, <get name="name"/>.</li>
+<li>谢谢你陪我聊天, <get name="name"/>.</li>
+<li>改天见, <get name="name"/>.</li>
+</random>
+</template>
+</category>
+
+
+
+<category>
+  <pattern>*</pattern>
+  <template>
+    哈哈
+  </template>
+</category>
+
+
+
+<category>
+<pattern>生日快乐</pattern>
+<template>
+今天是<date format="%Y年%m月%d日" />, 不是我生日.
+</template>
+</category>
+
+<category>
+<pattern>你懂多少 *</pattern>
+<template>
+我懂<size />条规则.
+</template>
+</category>
+
+<category>
+<pattern>你的版本 *</pattern>
+<template>
+我已经<version />了.
+</template>
+</category>
+
+<category>
+<pattern>说错 *</pattern>
+<template>
+那我应该怎么说
+</template>
+</category>
+
+<category>
+<pattern>这么说不 *</pattern>
+<template>
+那我应该怎么说
+</template>
+</category>
+
+<category>
+<pattern>这样说不 *</pattern>
+<template>
+那我应该怎么说
+</template>
+</category>
+
+<category>
+<pattern>应该说 *</pattern>
+<that>那我应该怎么说</that>
+<template>
+  <srai><input index="3" /> XLEARN REPLY <star index="1" /></srai>
+</template>
+</category>
+
+
+<category>
+<pattern>你应该说 *</pattern>
+<that>那我应该怎么说</that>
+<template>
+  <srai><input index="3" /> XLEARN REPLY <star index="1" /></srai>
+</template>
+</category>
+
+<category>
+  <pattern>* XLEARN REPLY *</pattern>
+  <template>
+    <system>python learn.py '<star index="1" />' '<star index="2" />'</system>
+    <learn>auto-gen.aiml</learn>
+    好的我学会了, 你可以再问我试试.
+  </template>
+</category>
+
+
+</aiml>

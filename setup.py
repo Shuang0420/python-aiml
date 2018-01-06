@@ -47,10 +47,7 @@ Forked from python-aiml 0.9.1 (https://github.com/paulovn/python-aiml)
 #                    'aiml.script' : 'aiml/script' },
 
     include_package_data = False,       # otherwise package_data is not used
-    package_data={ 'aiml': ['botdata/standard/*.aiml',
-                            'botdata/standard/*.xml',
-                            'botdata/alice/*.aiml',
-                            'botdata/alice/*.xml',
+    package_data={ 'aiml': ['botdata/*',
                             ]},
 
     entry_points = { 'console_scripts': [

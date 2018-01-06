@@ -14,6 +14,82 @@ PyAIML is (c) Cort Stratton. *python-aiml* uses the same license as PyAIML
 (2-clause BSD), except for the ALICE AIML files taken from the [Free ALICE AIML set](https://code.google.com/archive/p/aiml-en-us-foundation-alice/), which are licensed with the [LGPL](http://www.gnu.org/licenses/lgpl.html) license.
 
 
+Install
+=======
+```
+git clone https://github.com/paulovn/python-aiml.git
+python setup.py build
+python setup.py install
+```
+
+Usage
+=======
+Quick & dirty example (assuming you've downloaded the "alice" AIML set):
+```
+import aiml
+import os
+
+# the path where your AIML startup.xml file located
+chdir = os.getcwd()
+
+k = aiml.Kernel()
+
+# for alice
+k.bootstrap(learnFiles="std-startup.xml", commands="load aiml b, chdir=chdir)
+
+# if python 2
+# while True: print(k.respond(raw_input("> ")))
+# if python 3
+while True: print(k.respond(input("> ")))
+```
+
+![example3](pictures/alice.png)
+
+
+Quick & dirty example (assuming you've downloaded the "cn-examples" AIML set):
+first ``cd cn-examples``
+```
+import aiml
+import os
+
+# the path where your AIML startup.xml file located
+chdir = os.getcwd()
+
+k = aiml.Kernel()
+
+# for chinese
+k.bootstrap(learnFiles="cn-startup.xml", commands="load aiml cn", chdir=chdir)
+
+# if python 2
+# while True: print(k.respond(raw_input("> ")))
+# if python 3
+while True: print(k.respond(input("> ")))
+
+```
+
+See ``Examples`` for details.
+
+# Examples
+Some specific examples:
+**/example1:** 
+
+![example1](pictures/example1.png)
+
+**/example2:** 
+
+![example2](pictures/example2.png)
+
+**/example3:** 
+Run ``python start.py`` first and then run ``python continue.py``. 
+Example3 does not work for python2 due to shelve sync issue.
+
+![example3](pictures/example3.png)
+
+**/example4:** 
+
+![example4](pictures/example4.png)
+
+
 Scripts
 =======
 
@@ -61,69 +137,10 @@ This last version allows executing only some of the test files by explicitly nam
 - [ALICE AI Foundation](http://alice.pandorabots.com/)
 - [AIML 1.0.1](http://www.alicebot.org/TR/2011/)
 
-# Examples
-
-**/example1:** 
-
-![example1](pictures/example1.png)
-
-**/example2:** 
-
-![example2](pictures/example2.png)
-
-**/example3:** 
-Run ``python start.py`` first and then run ``python continue.py``. 
-Example3 does not work for python2 due to shelve sync issue.
-
-![example3](pictures/example3.png)
-
-**/example4:** 
-
-![example4](pictures/example4.png)
 
 
 
 
 
-------------------------------------------------------------------------------
-
-
-Original README from PyAIML
-===========================
-
-
-PyAIML is an interpreter for AIML (the Artificial Intelligence Markup
-Language), implemented entirely in standard Python.  It strives for
-simple, austere, 100% compliance with the AIML 1.0.1 standard, no less
-and no more.
-
-This is currently pre-alpha software.  Use at your own risk!
-
-For information on what's new in this version, see the ``CHANGES.txt`` file.
-
-For information on the state of development, including the current level of 
-AIML 1.0.1 compliance, see the ``SUPPORTED_TAGS.txt`` file.
-
-Quick & dirty example (assuming you've downloaded the "standard" AIML set)::
-
-	import aiml
-
-	# The Kernel object is the public interface to
-	# the AIML interpreter.
-	k = aiml.Kernel()
-	
-	# Use the 'learn' method to load the contents
-	# of an AIML file into the Kernel.
-	k.learn("std-startup.xml")
-	
-	# Use the 'respond' method to compute the response
-	# to a user's input string.  respond() returns
-	# the interpreter's response, which in this case
-	# we ignore.
-	k.respond("load aiml b")
-	
-	# Loop forever, reading user input from the command
-	# line and printing responses.
-	while True: print k.respond(raw_input("> "))
 
 

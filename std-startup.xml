@@ -6,7 +6,7 @@
 <template>
 
 <!-- Load standard AIML set -->
-<learn>aiml/botdata/standard/std-*.aiml</learn>
+<learn>aiml/botdata/alice/*.aiml</learn>
 </template>
 </category>
 
