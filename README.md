@@ -1,4 +1,4 @@
-# python-aiml
+# aiml
 
 ***********
 
