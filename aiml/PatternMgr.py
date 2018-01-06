@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 This class implements the AIML pattern-matching algorithm described
 by Dr. Richard Wallace at the following site:
@@ -10,8 +11,7 @@ from __future__ import unicode_literals
 import marshal
 import pprint
 import re
-import string
-import sys
+
 
 from .constants import *
 from .LangSupport import splitUnicode
@@ -24,14 +24,15 @@ class PatternMgr:
     _THAT       = 3
     _TOPIC      = 4
     _BOT_NAME   = 5
-    
-    def __init__(self):
+
+    def __init__(self, encoding):
         self._root = {}
         self._templateCount = 0
-        self._botName = u"Nameless"
+        self._botName = "小言"
         punctuation = "\"`~!@#$%^&*()-_=+[{]}\|;:',<.>/?"
         self._puncStripRE = re.compile("[" + re.escape(punctuation) + "]", re.U)
         self._whitespaceRE = re.compile("\s+", re.UNICODE)
+        self._textEncoding = encoding
 
     def numTemplates(self):
         """Return the number of templates currently stored."""
@@ -42,8 +43,12 @@ class PatternMgr:
         patterns.  The name must be a single word!
         """
         # Collapse a multi-word name into a single word
+        # name = name.decode("utf8")
+        if self._textEncoding:
+            name = name.decode("utf8")
         self._botName = unicode( ' '.join(name.split()) )
 
+        
     def dump(self):
         """Print all learned patterns, for debugging purposes."""
         pprint.pprint(self._root)
@@ -130,7 +135,7 @@ class PatternMgr:
 
         # add the template.
         if self._TEMPLATE not in node:
-            self._templateCount += 1    
+            self._templateCount += 1
         node[self._TEMPLATE] = template
 
     def match(self, pattern, that, topic):
@@ -145,7 +150,8 @@ class PatternMgr:
         # Mutilate the input.  Remove all punctuation and convert the
         # text to all caps.
         input_ = pattern.upper()
-        input_ = re.sub(self._puncStripRE, " ", input_)
+        # DON'T DELETE! Original aiml package will remove all punctuation but here we need @ symbol.
+        # input_ = re.sub(self._puncStripRE, " ", input_)
         if that.strip() == u"": that = u"ULTRABOGUSDUMMYTHAT" # 'that' must never be empty
         thatInput = that.upper()
         thatInput = re.sub(self._puncStripRE, " ", thatInput)
@@ -202,7 +208,7 @@ class PatternMgr:
         else:
             # unknown value
             raise ValueError( "starType must be in ['star', 'thatstar', 'topicstar']" )
-        
+
         # compare the input string to the matched pattern, word by word.
         # At the end of this loop, if foundTheRightStar is true, start and
         # end will contain the start and end indices (in "words") of
@@ -243,21 +249,23 @@ class PatternMgr:
                     break
             # Move to the next element of the pattern.
             j += 1
-            
+
         # extract the star words from the original, unmutilated input.
         if foundTheRightStar:
             #print( ' '.join(pattern.split()[start:end+1]) )
-            if starType == 'star': return ' '.join(pattern.split()[start:end+1])
+            if starType == 'star':
+                return ' '.join(pattern.split()[start:end+1])
             elif starType == 'thatstar': return ' '.join(that.split()[start:end+1])
             elif starType == 'topicstar': return ' '.join(topic.split()[start:end+1])
-        else: return u""
+        else:
+            return u""
 
     def _match(self, words, thatWords, topicWords, root):
         """Return a tuple (pat, tem) where pat is a list of nodes, starting
         at the root and leading to the matching pattern, and tem is the
         matched template.
 
-        """ 
+        """
         # base-case: if the word list is empty, return the current node's
         # template.
         if len(words) == 0:
@@ -296,15 +304,15 @@ class PatternMgr:
         # Check underscore.
         # Note: this is causing problems in the standard AIML set, and is
         # currently disabled.
-        if self._UNDERSCORE in root:
-            # Must include the case where suf is [] in order to handle the case
-            # where a * or _ is at the end of the pattern.
-            for j in range(len(suffix)+1):
-                suf = suffix[j:]
-                pattern, template = self._match(suf, thatWords, topicWords, root[self._UNDERSCORE])
-                if template is not None:
-                    newPattern = [self._UNDERSCORE] + pattern
-                    return (newPattern, template)
+        # if self._UNDERSCORE in root:
+        #     # Must include the case where suf is [] in order to handle the case
+        #     # where a * or _ is at the end of the pattern.
+        #     for j in range(len(suffix)+1):
+        #         suf = suffix[j:]
+        #         pattern, template = self._match(suf, thatWords, topicWords, root[self._UNDERSCORE])
+        #         if template is not None:
+        #             newPattern = [self._UNDERSCORE] + pattern
+        #             return (newPattern, template)
 
         # Check first
         if first in root:
@@ -319,7 +327,7 @@ class PatternMgr:
             if template is not None:
                 newPattern = [first] + pattern
                 return (newPattern, template)
-        
+
         # check star
         if self._STAR in root:
             # Must include the case where suf is [] in order to handle the case
@@ -332,4 +340,4 @@ class PatternMgr:
                     return (newPattern, template)
 
         # No matches were found.
-        return (None, None)         
+        return (None, None)

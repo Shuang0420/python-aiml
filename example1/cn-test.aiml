@@ -72,6 +72,17 @@
 </template>
 </category>
 
+<category>
+<pattern>你是谁 *</pattern>
+<template>
+<random>
+<li>我叫<bot name="name"/></li>
+<li>我是<bot name="name"/>哇</li>
+<li>你可以叫我<bot name="name"/></li>
+</random>
+</template>
+</category>
+
 
 <category>
 <pattern>一个*</pattern>
@@ -81,7 +92,7 @@
 </category>
 
 <category>
-<pattern>_</pattern>
+<pattern>*</pattern>
 <that>我怎么称呼你</that>
 <template>
 <think><set name="personality">average</set><set name="name"><formal><star/></formal></set></think>
@@ -102,7 +113,6 @@
 <pattern>INACTIVITYQUESTIONS</pattern>
 <template>
 <condition>
-<li name="name" value="">我怎么称呼你?</li>
 <li><srai>ASK USER A QUESTION</srai></li>
 </condition>
 </template>
@@ -112,6 +122,7 @@
 <pattern>ASK USER A QUESTION</pattern>
 <template>
 <condition>
+  <li name="name" value="">我怎么称呼你</li>
 <li name="age" value="">你多大了?</li>
 <!-- <li name="job" value="">你的职业是?</li> -->
 <!-- <li name="favmovie" value="">你最喜欢的电影是?</li> -->
@@ -165,7 +176,7 @@
 
 
 <category>
-<pattern>_</pattern>
+<pattern>*</pattern>
 <that>你最喜欢什么颜色</that>
 <template>
 <think><set name="favcolor"><formal><star/></formal></set></think>

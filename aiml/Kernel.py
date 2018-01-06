@@ -7,13 +7,15 @@ import copy
 import glob
 import os
 import random
-import re
 import string
 import sys
 import time
+import datetime
 import threading
 import xml.sax
 from collections import namedtuple
+import re
+import itertools
 try:
     from ConfigParser import ConfigParser
 except ImportError:
@@ -27,7 +29,9 @@ from .PatternMgr import PatternMgr
 from .WordSub import WordSub
 from .LangSupport import splitChinese, mergeChineseSpace
 
-
+if not PY3:
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 def msg_encoder( encoding=None ):
     """
@@ -59,9 +63,10 @@ class Kernel:
 
         self._verboseMode = False
         self._version = "python-aiml {}".format(VERSION)
-        self._brain = PatternMgr()
         self._respondLock = threading.RLock()
+        # initialize self._textEncoding and self._cod 
         self.setTextEncoding( None if PY3 else "utf-8" )
+        self._brain = PatternMgr(self._textEncoding)
 
         # set up the sessions   
         if sessionStore is not None:
@@ -72,7 +77,7 @@ class Kernel:
 
         # Set up the bot predicates
         self._botPredicates = {}
-        self.setBotPredicate("name", "Nameless")
+        self.setBotPredicate("name", "小言")
 
         # set up the word substitutors (subbers):
         self._subbers = {}
@@ -346,6 +351,19 @@ class Kernel:
             # store the pattern/template pairs in the PatternMgr.
             for key,tem in handler.categories.items():
                 self._brain.add(key,tem)
+
+                # handle all combinations of *
+                s = key[0]
+                occ = [m.start() for m in re.finditer('\*', s)]
+                for i in range(1, len(occ)+1):
+                    pos = list(itertools.combinations(occ, i))
+                    for p in pos:
+                        cur = s
+                        for pi in p[::-1]:
+                            cur = cur[:pi] + cur[pi+1:]
+                        self._brain.add((cur, key[1], key[2]),tem)
+
+
             # Parsing was successful.
             if self._verboseMode:
                 print( "done (%.2f seconds)" % (time.clock() - start) )
@@ -395,6 +413,8 @@ class Kernel:
 
             finalResponse = finalResponse.strip()
             #print( "@ASSERT", self.getPredicate(self._inputStack, sessionID))
+            if not finalResponse:
+                finalResponse = u"这是个没有意义的问题，小言没办法回答喔~"
             assert(len(self.getPredicate(self._inputStack, sessionID)) == 0)
 
             # and return, encoding the string into the I/O encoding
@@ -623,8 +643,9 @@ class Kernel:
         AIML specification doesn't require any particular format for
         this information, so I go with whatever's simplest.
 
-        """        
-        return time.asctime()
+        """
+        return str(datetime.datetime.now())[:-7]
+        # return time.asctime()
 
     # <formal>
     def _processFormal(self, elem, sessionID):
@@ -940,7 +961,9 @@ class Kernel:
         topic = self.getPredicate("topic", sessionID)
         response = self._brain.star("star", input_, that, topic, index)
         return response
-    
+
+
+
     # <system>
     def _processSystem(self,elem, sessionID):
         """Process a <system> AIML element.
@@ -959,7 +982,6 @@ class Kernel:
         command = ""
         for e in elem[2:]:
             command += self._processElement(e, sessionID)
-        
         # normalize the path to the command.  Under Windows, this
         # switches forward-slashes to back-slashes; all system
         # elements should use unix-style paths for cross-platform
