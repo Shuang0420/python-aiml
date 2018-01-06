@@ -1,5 +1,5 @@
 '''
-Build the python-aiml Py2/Py3 package
+Build the python-aiml Py2/Py3 Chinese version package
 '''
 
 from setuptools import setup
@@ -10,20 +10,19 @@ from aiml.constants import VERSION
 #package_prefix = "Lib/site-packages/aiml"
 
 
-setup_args = dict( name="python-aiml",
+setup_args = dict( name="aiml",
     version=VERSION,
-    author="Paulo Villegas",
-    author_email="paulo.vllgs@gmail.com",
+    author="Shuang0420",
+    author_email="sxu1@alumni.cmu.edu",
     
     description="An interpreter package for AIML, the Artificial Intelligence Markup Language",
-    long_description="""python-aiml implements an interpreter for AIML, the Artificial Intelligence
+    long_description="""aiml implements an interpreter for AIML, the Artificial Intelligence
 Markup Language developed by Dr. Richard Wallace of the A.L.I.C.E. Foundation.
 It can be used to implement a conversational AI program.
 
-Forked from PyAIML 0.8.6 (https://github.com/cdwfs/pyaiml) 
-PyAIML (c) Cort Stratton
+Forked from python-aiml 0.9.1 (https://github.com/paulovn/python-aiml) 
 """,
-    url="https://github.com/paulovn/python-aiml",
+    url="https://github.com/Shuang0420/aiml.git",
     platforms=["any"],
     classifiers=["Development Status :: 4 - Beta",
                  "Environment :: Console",
