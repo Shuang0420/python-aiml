@@ -415,7 +415,7 @@ class Kernel:
             finalResponse = finalResponse.strip()
             #print( "@ASSERT", self.getPredicate(self._inputStack, sessionID))
             if not finalResponse:
-                finalResponse = u"无言以对~"
+                finalResponse = u"暂时无言以对 ~你教我呀"
             assert(len(self.getPredicate(self._inputStack, sessionID)) == 0)
 
             # and return, encoding the string into the I/O encoding
