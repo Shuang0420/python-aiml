@@ -96,6 +96,7 @@ class Kernel:
             "get":          self._processGet,
             "gossip":       self._processGossip,
             "id":           self._processId,
+            "if":           self._processIf,
             "input":        self._processInput,
             "javascript":   self._processJavascript,
             "learn":        self._processLearn,
@@ -525,7 +526,60 @@ class Kernel:
         """
         attrName = elem[1]['name']
         return self.getBotPredicate(attrName)
-        
+
+
+    # <if>
+    def _processIf(self, elem, sessionID):
+        """Process a <if> AIML element.
+
+        Optional element attributes:
+            name: The name of a predicate to test.
+            value: The value to test the predicate for.
+            exists: If the predicate exists
+
+        <If> elements come in two flavors.  Each has different
+        attributes, and each handles their contents differently.
+
+        The simplest case is when the <if> tag has both a 'name'
+        and a 'value' attribute.  In this case, if the predicate
+        'name' has the value 'value', then the contents of the element
+        are processed and returned. It works exactly like <condition>
+
+        If the <condition> element has both a 'name' and a 'exists'
+        attribute , then it checks if the value of 'name' exists.
+
+        """
+        attr = None
+        response = ""
+        attr = elem[1]
+
+        # Case #1: test the value of a specific predicate for a
+        # specific value.
+        if 'name' in attr and 'value' in attr:
+            val = self.getPredicate(attr['name'], sessionID)
+            if val == attr['value']:
+                for e in elem[2:]:
+                    response += self._processElement(e,sessionID)
+                return response
+        elif 'name' in attr and 'exists' in attr:
+            # Case #2: Check if 'name' predicate exists
+            val = self.getPredicate(attr['name'], sessionID)
+
+            items = []
+            for e in elem[2:]:
+                items.append(e)
+
+            if elem[1]["exists"]=="true" and val or (elem[1]["exists"]=="false" and not val):
+                for item in items:
+                    response += self._processElement(item,sessionID)
+
+        else:
+            if self._verboseMode: print( "error in default listitem" )
+        return response
+
+
+
+
     # <condition>
     def _processCondition(self, elem, sessionID):
         """Process a <condition> AIML element.

@@ -3,7 +3,9 @@ This is a fork of the [paulovn/python-aiml](https://github.com/paulovn/python-ai
 refactored to make it 
 
 1. support Chinese
-2. support both Python 2.7 and Python 3.
+2. support both Python 2.7 and Python 3
+3. support all combinations of \* operation
+4. support if-exists tab
 
 Part of the idea and example are from [andelf/PyAIML](https://github.com/andelf/PyAIML/tree/9b46392935d223358f922c365a9ecb7ecbadc7ea). 
 

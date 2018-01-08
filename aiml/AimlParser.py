@@ -435,6 +435,7 @@ class AimlHandler(ContentHandler):
         "get":          ( ["name"], [], False ),
         "gossip":       ( [], [], True ),
         "id":           ( [], [], False ),
+        "if":           ( ["name"], ["value", "exists"], True ),
         "input":        ( [], ["index"], False ),
         "javascript":   ( [], [], True ),
         "learn":        ( [], [], True ),
