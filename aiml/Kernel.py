@@ -273,7 +273,7 @@ class Kernel:
         self._cod = msg_encoder( encoding )
 
 
-    def loadSubs(self, filename):
+    def loadSubs(self, filename, encoding='utf-8'):
         """Load a substitutions file.
 
         The file must be in the Windows-style INI format (see the
@@ -283,9 +283,9 @@ class Kernel:
 
         """
         # inFile = file(filename)
-        inFile = open(filename)
+        inFile = open(filename, encoding=encoding)
         parser = ConfigParser()
-        parser.readfp(inFile, filename)
+        parser.read_file(inFile, filename)
         inFile.close()
         for s in parser.sections():
             # Add a new WordSub instance for this section.  If one already
